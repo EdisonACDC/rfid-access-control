@@ -1,0 +1,63 @@
+{
+  "config": {
+    "step": {
+      "user": {
+        "title": "Configura Controllo Accessi RFID",
+        "description": "Inserisci l'ID del tastierino e il suo topic Zigbee2MQTT. Puoi aggiungerne altri dal Menu operatore della card.",
+        "data": {
+          "device_id": "ID tastierino (es: portoncino)",
+          "mqtt_topic": "Topic MQTT (es: zigbee2mqtt/tastierino_portoncino)"
+        }
+      }
+    },
+    "error": {
+      "no_device_id": "Inserisci un ID per il tastierino",
+      "no_mqtt_topic": "Inserisci il topic MQTT del tastierino",
+      "invalid_mqtt_topic": "Il topic MQTT deve contenere almeno uno slash (es: zigbee2mqtt/nome)",
+      "already_configured": "Tastierino già configurato"
+    },
+    "abort": {
+      "already_configured": "Tastierino già configurato"
+    }
+  },
+  "options": {
+    "step": {
+      "init": {
+        "title": "Impostazioni tastierino",
+        "description": "Topic MQTT e ritardo del coperchio. Dopo il salvataggio il tastierino si ricarica.",
+        "data": {
+          "mqtt_topic": "Topic MQTT",
+          "tamper_delay": "Ritardo coperchio (secondi, 0-60)"
+        },
+        "data_description": {
+          "tamper_delay": "Il tastierino si blocca solo se il coperchio resta aperto più a lungo di questo ritardo. L'apertura viene comunque registrata nel log."
+        }
+      }
+    },
+    "error": {
+      "no_mqtt_topic": "Inserisci il topic MQTT del tastierino",
+      "invalid_mqtt_topic": "Il topic MQTT deve contenere almeno uno slash (es: zigbee2mqtt/nome)"
+    }
+  },
+  "services": {
+    "add_user": {"name": "Aggiungi utente", "description": "Aggiunge un utente al tastierino, con PIN o tessera e accesso temporaneo facoltativo."},
+    "remove_user": {"name": "Rimuovi utente", "description": "Rimuove un utente dal tastierino."},
+    "update_user": {"name": "Aggiorna utente", "description": "Aggiorna nome, PIN, tessera o accesso di un utente. PIN o tessera vuoti restano invariati."},
+    "add_action": {"name": "Aggiungi azione", "description": "Aggiunge un'azione che parte quando l'utente entra, con il tasto del tastierino scelto."},
+    "remove_action": {"name": "Rimuovi azione", "description": "Rimuove un'azione da un utente."},
+    "validate_access": {"name": "Valida accesso", "description": "Verifica PIN o tessera ed esegue le azioni dell'utente."},
+    "list_users": {"name": "Elenca utenti", "description": "Elenca gli utenti del tastierino."},
+    "set_admin_pin": {"name": "Imposta PIN admin", "description": "Imposta o cambia il PIN admin. Se è già impostato serve il PIN attuale."},
+    "set_operator_pin": {"name": "Imposta PIN operatore", "description": "Imposta o cambia il PIN operatore. Se è già impostato serve il PIN attuale."},
+    "clear_tamper_lock": {"name": "Sblocca dopo coperchio", "description": "Sblocca il tastierino dopo l'apertura del coperchio, con il PIN operatore."},
+    "verify_admin_pin": {"name": "Verifica PIN admin", "description": "Controlla il PIN admin. Risponde valid, locked_out e not_set."},
+    "verify_operator_pin": {"name": "Verifica PIN operatore", "description": "Controlla il PIN operatore."},
+    "test_access_code": {"name": "Prova un codice", "description": "Dice di chi è un codice, senza eseguire azioni (serve il PIN operatore)."},
+    "set_installer_mode": {"name": "Modalità installatore", "description": "Attiva o spegne la modalità installatore per 0-60 minuti (serve il PIN operatore)."},
+    "get_user_pin": {"name": "Leggi PIN utente", "description": "Restituisce il PIN di un utente. Serve il PIN admin; i tentativi errati contano nel blocco."},
+    "add_sos_action": {"name": "Aggiungi azione SOS", "description": "Aggiunge un'azione globale che parte col tasto SOS."},
+    "remove_sos_action": {"name": "Rimuovi azione SOS", "description": "Rimuove un'azione globale del tasto SOS."},
+    "copy_user": {"name": "Copia utente", "description": "Copia un utente su un altro tastierino. Serve il PIN admin del tastierino di destinazione."},
+    "discover_keypads": {"name": "Cerca tastierini", "description": "Legge da Zigbee2MQTT i tastierini disponibili."}
+  }
+}

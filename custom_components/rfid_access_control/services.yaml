@@ -1,0 +1,554 @@
+add_user:
+  name: Add User
+  description: Add a new user to this keypad. Optional temporary access window and number of uses.
+  fields:
+    device_id:
+      name: Keypad
+      description: Keypad device_id (required only when more than one keypad is configured)
+      required: false
+      selector:
+        text:
+    user_id:
+      name: User ID
+      description: Unique identifier for the user (e.g., mario_001)
+      required: true
+      example: mario_001
+      selector:
+        text:
+    user_name:
+      name: User Name
+      description: Display name for the user
+      required: true
+      example: Mario Rossi
+      selector:
+        text:
+    user_pin:
+      name: PIN
+      description: 4-8 digit PIN code
+      required: false
+      example: "1234"
+      selector:
+        text:
+    user_rfid:
+      name: RFID
+      description: RFID card/tag identifier
+      required: false
+      example: "04A12B3C"
+      selector:
+        text:
+    valid_from:
+      name: Valid from
+      description: Local date and time from which the user can access (empty = always)
+      required: false
+      example: "2026-12-24T18:00"
+      selector:
+        text:
+    valid_until:
+      name: Valid until
+      description: Local date and time until which the user can access (empty = no end)
+      required: false
+      example: "2026-12-26T23:59"
+      selector:
+        text:
+    max_uses:
+      name: Max uses
+      description: Maximum number of accesses (0 = unlimited)
+      required: false
+      default: 0
+      selector:
+        number:
+          min: 0
+          max: 999
+
+remove_user:
+  name: Remove User
+  description: Remove a user from this keypad
+  fields:
+    device_id:
+      name: Keypad
+      description: Keypad device_id (required only when more than one keypad is configured)
+      required: false
+      selector:
+        text:
+    user_id:
+      name: User ID
+      description: User identifier to remove
+      required: true
+      example: mario_001
+      selector:
+        text:
+
+update_user:
+  name: Update User
+  description: Update user information. An empty PIN or RFID keeps the current value.
+  fields:
+    device_id:
+      name: Keypad
+      description: Keypad device_id (required only when more than one keypad is configured)
+      required: false
+      selector:
+        text:
+    user_id:
+      name: User ID
+      description: User identifier to update
+      required: true
+      example: mario_001
+      selector:
+        text:
+    user_name:
+      name: User Name
+      description: New display name
+      required: false
+      example: Mario Rossi
+      selector:
+        text:
+    user_pin:
+      name: PIN
+      description: New PIN code (empty keeps the current one)
+      required: false
+      example: "5678"
+      selector:
+        text:
+    user_rfid:
+      name: RFID
+      description: New RFID identifier (empty keeps the current one)
+      required: false
+      example: "04A12B3C"
+      selector:
+        text:
+    enabled:
+      name: Enabled
+      description: Enable or disable user access
+      required: false
+      selector:
+        boolean:
+    valid_from:
+      name: Valid from
+      description: Local date and time from which the user can access
+      required: false
+      selector:
+        text:
+    valid_until:
+      name: Valid until
+      description: Local date and time until which the user can access
+      required: false
+      selector:
+        text:
+    max_uses:
+      name: Max uses
+      description: Maximum number of accesses (0 = unlimited)
+      required: false
+      selector:
+        number:
+          min: 0
+          max: 999
+
+add_action:
+  name: Add Action
+  description: Add an action to execute when user gains access
+  fields:
+    device_id:
+      name: Keypad
+      description: Keypad device_id (required only when more than one keypad is configured)
+      required: false
+      selector:
+        text:
+    user_id:
+      name: User ID
+      description: User identifier
+      required: true
+      example: mario_001
+      selector:
+        text:
+    action_name:
+      name: Action Name
+      description: Friendly name for this action
+      required: true
+      example: "Open Front Door"
+      selector:
+        text:
+    action_entity:
+      name: Target Entity
+      description: Entity ID to control
+      required: true
+      example: light.living_room
+      selector:
+        entity:
+    action_service:
+      name: Service
+      description: Service to call (domain.service)
+      required: true
+      example: light.turn_on
+      selector:
+        text:
+    action_data:
+      name: Service Data
+      description: Additional service parameters as JSON
+      required: false
+      example: '{"brightness": 255}'
+      selector:
+        text:
+    keypad_action:
+      name: Keypad Trigger
+      description: "Only trigger for this keypad action: any, disarm, arm_night_zones, arm_day_zones, arm_all_zones"
+      required: false
+      default: "any"
+      example: "disarm"
+      selector:
+        select:
+          options:
+            - any
+            - disarm
+            - arm_night_zones
+            - arm_day_zones
+            - arm_all_zones
+    delay_before_seconds:
+      name: Ritardo PRIMA (secondi)
+      description: Attendi N secondi PRIMA di eseguire questa azione
+      required: false
+      default: 0
+      example: 3
+      selector:
+        number:
+          min: 0
+          max: 3600
+          unit_of_measurement: s
+    delay_after_seconds:
+      name: Ritardo DOPO (secondi)
+      description: Attendi N secondi DOPO aver eseguito questa azione (prima della prossima)
+      required: false
+      default: 0
+      example: 5
+      selector:
+        number:
+          min: 0
+          max: 3600
+          unit_of_measurement: s
+
+remove_action:
+  name: Remove Action
+  description: Remove an action from a user
+  fields:
+    device_id:
+      name: Keypad
+      description: Keypad device_id (required only when more than one keypad is configured)
+      required: false
+      selector:
+        text:
+    user_id:
+      name: User ID
+      description: User identifier
+      required: true
+      example: mario_001
+      selector:
+        text:
+    action_name:
+      name: Action Name
+      description: Name of the action to remove
+      required: true
+      example: "Open Front Door"
+      selector:
+        text:
+
+validate_access:
+  name: Validate Access
+  description: Validate user credentials and execute actions (counts toward the keypad lockout)
+  fields:
+    device_id:
+      name: Keypad
+      description: Keypad device_id (required only when more than one keypad is configured)
+      required: false
+      selector:
+        text:
+    user_pin:
+      name: PIN
+      description: User PIN code
+      required: false
+      example: "1234"
+      selector:
+        text:
+    user_rfid:
+      name: RFID
+      description: User RFID identifier
+      required: false
+      example: "04A12B3C"
+      selector:
+        text:
+
+list_users:
+  name: List Users
+  description: List all registered users of this keypad
+  fields:
+    device_id:
+      name: Keypad
+      description: Keypad device_id (required only when more than one keypad is configured)
+      required: false
+      selector:
+        text:
+
+set_admin_pin:
+  name: Set Admin PIN
+  description: Set or change the admin PIN. If a PIN is already set, current_pin is required.
+  fields:
+    device_id:
+      name: Keypad
+      description: Keypad device_id (required only when more than one keypad is configured)
+      required: false
+      selector:
+        text:
+    new_pin:
+      name: New admin PIN
+      description: 4-8 digits, different from the operator PIN
+      required: true
+      example: "12345678"
+      selector:
+        text:
+          type: password
+    current_pin:
+      name: Current admin PIN
+      description: Required when an admin PIN is already set
+      required: false
+      selector:
+        text:
+          type: password
+
+set_operator_pin:
+  name: Set Operator PIN
+  description: Set or change the operator PIN (operator menu and tamper unlock). If a PIN is already set, current_pin is required.
+  fields:
+    device_id:
+      name: Keypad
+      description: Keypad device_id (required only when more than one keypad is configured)
+      required: false
+      selector:
+        text:
+    new_pin:
+      name: New operator PIN
+      description: 4-8 digits, different from the admin PIN
+      required: true
+      example: "5678"
+      selector:
+        text:
+          type: password
+    current_pin:
+      name: Current operator PIN
+      description: Required when an operator PIN is already set
+      required: false
+      selector:
+        text:
+          type: password
+
+clear_tamper_lock:
+  name: Clear Tamper Lock
+  description: Unlock the keypad after tamper. Requires the operator PIN.
+  fields:
+    device_id:
+      name: Keypad
+      description: Keypad device_id (required only when more than one keypad is configured)
+      required: false
+      selector:
+        text:
+    pin:
+      name: Operator PIN
+      description: Operator PIN
+      required: true
+      selector:
+        text:
+          type: password
+
+verify_admin_pin:
+  name: Verify Admin PIN
+  description: Check the admin PIN. Returns valid, locked_out and not_set.
+  fields:
+    device_id:
+      name: Keypad
+      description: Keypad device_id (required only when more than one keypad is configured)
+      required: false
+      selector:
+        text:
+    pin:
+      name: Admin PIN
+      description: PIN to check
+      required: true
+      selector:
+        text:
+          type: password
+
+verify_operator_pin:
+  name: Verify Operator PIN
+  description: Check the operator PIN. Returns valid, locked_out and not_set.
+  fields:
+    device_id:
+      name: Keypad
+      description: Keypad device_id (required only when more than one keypad is configured)
+      required: false
+      selector:
+        text:
+    pin:
+      name: Operator PIN
+      description: PIN to check
+      required: true
+      selector:
+        text:
+          type: password
+
+test_access_code:
+  name: Test Access Code
+  description: Tell which user a PIN or RFID code belongs to, without running actions. Requires the operator PIN.
+  fields:
+    device_id:
+      name: Keypad
+      description: Keypad device_id (required only when more than one keypad is configured)
+      required: false
+      selector:
+        text:
+    operator_pin:
+      name: Operator PIN
+      description: Operator PIN
+      required: true
+      selector:
+        text:
+          type: password
+    code:
+      name: Code
+      description: PIN or RFID to test
+      required: true
+      selector:
+        text:
+
+set_installer_mode:
+  name: Set Installer Mode
+  description: Keep the keypad working with the cover open for a limited time (0 minutes turns it off). Requires the operator PIN.
+  fields:
+    device_id:
+      name: Keypad
+      description: Keypad device_id (required only when more than one keypad is configured)
+      required: false
+      selector:
+        text:
+    pin:
+      name: Operator PIN
+      description: Operator PIN
+      required: true
+      selector:
+        text:
+          type: password
+    minutes:
+      name: Minutes
+      description: Duration (15, 30 or 60 recommended; 0 turns it off)
+      required: true
+      default: 15
+      selector:
+        number:
+          min: 0
+          max: 60
+          unit_of_measurement: min
+
+get_user_pin:
+  name: Get user PIN
+  description: Return the PIN of a user. Needs the admin PIN; wrong tries count towards the lockout. Response only, never stored in the sensor.
+  fields:
+    device_id:
+      name: Keypad
+      description: Keypad device_id (required only when more than one keypad is configured)
+      required: false
+      selector:
+        text:
+    admin_pin:
+      name: Admin PIN
+      description: Current admin PIN
+      required: true
+      selector:
+        text:
+    user_id:
+      name: User ID
+      description: User whose PIN to show
+      required: true
+      selector:
+        text:
+
+add_sos_action:
+  name: Add SOS action
+  description: Add a global action run by the SOS key (not tied to a user)
+  fields:
+    device_id:
+      name: Keypad
+      description: Keypad device_id (required only when more than one keypad is configured)
+      required: false
+      selector:
+        text:
+    action_name:
+      name: Action name
+      description: Unique name of the SOS action
+      required: true
+      selector:
+        text:
+    action_entity:
+      name: Entity
+      description: Entity to act on
+      required: false
+      selector:
+        text:
+    action_service:
+      name: Service
+      description: Service to call, e.g. light.turn_on
+      required: true
+      selector:
+        text:
+    action_data:
+      name: Service data
+      description: Extra data for the service
+      required: false
+      selector:
+        object:
+
+remove_sos_action:
+  name: Remove SOS action
+  description: Remove a global SOS action
+  fields:
+    device_id:
+      name: Keypad
+      description: Keypad device_id (required only when more than one keypad is configured)
+      required: false
+      selector:
+        text:
+    action_name:
+      name: Action name
+      description: Name of the SOS action to remove
+      required: true
+      selector:
+        text:
+
+copy_user:
+  name: Copy User To Another Keypad
+  description: Copy a user (PIN, RFID, actions, access window) to another keypad. Needs the admin PIN of the target keypad. Actions are copied as they are: check their entities on the target.
+  fields:
+    device_id:
+      name: Source keypad
+      description: Keypad the user is copied from (required when more than one keypad is configured)
+      required: false
+      selector:
+        text:
+    user_id:
+      name: User ID
+      description: User to copy (same ID is used on the target)
+      required: true
+      selector:
+        text:
+    target_device_id:
+      name: Target keypad
+      description: device_id of the keypad that receives the copy
+      required: true
+      selector:
+        text:
+    admin_pin:
+      name: Target admin PIN
+      description: Admin PIN of the target keypad
+      required: true
+      selector:
+        text:
+          type: password
+
+discover_keypads:
+  name: Discover Keypads
+  description: Read the Zigbee2MQTT device list and return the keypads found (returns devices with friendly_name, model and topic).

@@ -1,0 +1,63 @@
+{
+  "config": {
+    "step": {
+      "user": {
+        "title": "Set up RFID Access Control",
+        "description": "Enter the keypad ID and its Zigbee2MQTT topic. You can add more from the operator menu of the card.",
+        "data": {
+          "device_id": "Keypad ID (e.g. front_door)",
+          "mqtt_topic": "MQTT topic (e.g. zigbee2mqtt/keypad_front_door)"
+        }
+      }
+    },
+    "error": {
+      "no_device_id": "Enter an ID for the keypad",
+      "no_mqtt_topic": "Enter the MQTT topic of the keypad",
+      "invalid_mqtt_topic": "The MQTT topic must contain at least one slash (e.g. zigbee2mqtt/name)",
+      "already_configured": "Keypad already configured"
+    },
+    "abort": {
+      "already_configured": "Keypad already configured"
+    }
+  },
+  "options": {
+    "step": {
+      "init": {
+        "title": "Keypad settings",
+        "description": "MQTT topic and cover delay. The keypad reloads after saving.",
+        "data": {
+          "mqtt_topic": "MQTT topic",
+          "tamper_delay": "Cover delay (seconds, 0-60)"
+        },
+        "data_description": {
+          "tamper_delay": "The keypad locks only if the cover stays open longer than this delay. The opening is always logged."
+        }
+      }
+    },
+    "error": {
+      "no_mqtt_topic": "Enter the MQTT topic of the keypad",
+      "invalid_mqtt_topic": "The MQTT topic must contain at least one slash (e.g. zigbee2mqtt/name)"
+    }
+  },
+  "services": {
+    "add_user": {"name": "Add user", "description": "Adds a user to the keypad, with PIN or card and optional temporary access."},
+    "remove_user": {"name": "Remove user", "description": "Removes a user from the keypad."},
+    "update_user": {"name": "Update user", "description": "Updates name, PIN, card or access of a user. Empty PIN or card keeps the current value."},
+    "add_action": {"name": "Add action", "description": "Adds an action that runs when the user enters, for the chosen keypad button."},
+    "remove_action": {"name": "Remove action", "description": "Removes an action from a user."},
+    "validate_access": {"name": "Validate access", "description": "Checks a PIN or card and runs the user's actions."},
+    "list_users": {"name": "List users", "description": "Lists the users of the keypad."},
+    "set_admin_pin": {"name": "Set admin PIN", "description": "Sets or changes the admin PIN. If already set, the current PIN is required."},
+    "set_operator_pin": {"name": "Set operator PIN", "description": "Sets or changes the operator PIN. If already set, the current PIN is required."},
+    "clear_tamper_lock": {"name": "Unlock after cover", "description": "Unlocks the keypad after the cover was opened, with the operator PIN."},
+    "verify_admin_pin": {"name": "Verify admin PIN", "description": "Checks the admin PIN. Returns valid, locked_out and not_set."},
+    "verify_operator_pin": {"name": "Verify operator PIN", "description": "Checks the operator PIN."},
+    "test_access_code": {"name": "Test an access code", "description": "Says whose code it is, without running actions (needs the operator PIN)."},
+    "set_installer_mode": {"name": "Installer mode", "description": "Turns installer mode on for 0-60 minutes, or off (needs the operator PIN)."},
+    "get_user_pin": {"name": "Read user PIN", "description": "Returns a user's PIN. Needs the admin PIN; wrong tries count toward the lockout."},
+    "add_sos_action": {"name": "Add SOS action", "description": "Adds a global action that runs on the SOS key."},
+    "remove_sos_action": {"name": "Remove SOS action", "description": "Removes a global SOS action."},
+    "copy_user": {"name": "Copy user", "description": "Copies a user to another keypad. Needs the admin PIN of the target keypad."},
+    "discover_keypads": {"name": "Discover keypads", "description": "Reads the keypads available in Zigbee2MQTT."}
+  }
+}
