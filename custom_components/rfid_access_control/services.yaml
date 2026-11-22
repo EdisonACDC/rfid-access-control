@@ -521,7 +521,7 @@ remove_sos_action:
 
 copy_user:
   name: Copy User To Another Keypad
-  description: Copy a user (PIN, RFID, actions, access window) to another keypad. Needs the admin PIN of the target keypad. Actions are copied as they are: check their entities on the target.
+  description: "Copy a user (PIN, RFID, actions, access window) to another keypad. Needs the admin PIN of the target keypad. Actions are copied as they are: check their entities on the target."
   fields:
     device_id:
       name: Source keypad
