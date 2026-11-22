@@ -1,10 +1,15 @@
-# RFID Access Control v1.3.0
+# RFID Access Control v1.3.1
 
 <p align="center">
   <img src="icon.png" alt="RFID Access Control" width="128" />
 </p>
 
 Integrazione per Home Assistant che gestisce il controllo accessi con il tastierino Zigbee **KEPZB-110** (PIN e tessere RFID), con una card Lovelace per tutto il lavoro quotidiano.
+
+## Novità 1.3.1
+
+- **Store HACS predefinito**: il repository rispetta i requisiti dello store (licenza MIT, logo nella cartella `brand/`, controlli automatici su HACS e Hassfest).
+- Nessun cambiamento di funzionamento rispetto alla 1.3.0.
 
 ## Novità 1.3.0
 
@@ -53,7 +58,7 @@ lock_timeout: 5
 | `lock_timeout` | No | 5 | Minuti prima del blocco automatico della card |
 | `device_id` | No | - | Non serve: la card legge il tastierino dal sensore |
 
-Se la risorsa non viene registrata (Lovelace in modalità YAML), aggiungila a mano in **Impostazioni** → **Dashboard** → **Risorse**: `/rfid_access_control/rfid-access-control-card.js?v=1.3.0`, tipo **Modulo JavaScript**.
+Se la risorsa non viene registrata (Lovelace in modalità YAML), aggiungila a mano in **Impostazioni** → **Dashboard** → **Risorse**: `/rfid_access_control/rfid-access-control-card.js?v=1.3.1`, tipo **Modulo JavaScript**.
 
 ## Come funziona
 

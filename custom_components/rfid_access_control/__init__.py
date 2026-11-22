@@ -1,4 +1,4 @@
-"""RFID Access Control integration for Home Assistant - v1.3.0."""
+"""RFID Access Control integration for Home Assistant - v1.3.1."""
 import asyncio
 import copy
 import json
@@ -784,7 +784,7 @@ async def async_setup_entry(hass: HomeAssistant, entry: ConfigEntry) -> bool:
     try:
         device_id = entry.data.get(CONF_DEVICE_ID)
         mqtt_topic = entry.options.get(CONF_MQTT_TOPIC) or entry.data.get(CONF_MQTT_TOPIC, "")
-        _LOGGER.info("Setting up RFID Access Control v1.3.0 for device: %s", device_id)
+        _LOGGER.info("Setting up RFID Access Control v1.3.1 for device: %s", device_id)
 
         db = AccessDatabase()
         store_path = Path(hass.config.config_dir) / DOMAIN / f"{device_id}.json"
@@ -883,7 +883,7 @@ async def async_setup_entry(hass: HomeAssistant, entry: ConfigEntry) -> bool:
         except Exception as error:
             _LOGGER.error("Error forwarding platforms: %s", error)
 
-        _LOGGER.info("RFID Access Control v1.3.0 setup complete for '%s' (MQTT: %s)", device_id, mqtt_topic)
+        _LOGGER.info("RFID Access Control v1.3.1 setup complete for '%s' (MQTT: %s)", device_id, mqtt_topic)
         return True
 
     except Exception as error:

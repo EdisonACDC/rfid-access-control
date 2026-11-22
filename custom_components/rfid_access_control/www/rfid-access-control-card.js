@@ -1,13 +1,13 @@
 /*
  * RFID Access Control - card Lovelace
- * Versione 1.3.0
+ * Versione 1.3.1
  *
  * La card usa solo i servizi e gli attributi del sensore dell'integrazione.
  * I PIN non restano nella pagina: si digitano su un tastierino a schermo e
  * vengono verificati dal server. Il PIN di un utente si vede solo dopo aver
  * digitato il PIN admin.
  */
-const RFID_CARD_VERSION = '1.3.0';
+const RFID_CARD_VERSION = '1.3.1';
 
 const RFID_CARD_CSS = `
 :host { display: block; }

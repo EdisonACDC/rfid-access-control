@@ -247,7 +247,7 @@ class IntegrationTest(unittest.IsolatedAsyncioTestCase):
                 self.assertTrue(await integ.async_setup(self.hass, {}))
         self.assertEqual(failing.await_count, 1)
         self.assertTrue(any(
-            "/rfid_access_control/rfid-access-control-card.js?v=1.3.0" in line for line in logs.output
+            "/rfid_access_control/rfid-access-control-card.js?v=1.3.1" in line for line in logs.output
         ))
         # L'integrazione è comunque operativa: i servizi rispondono.
         await self.set_pins()

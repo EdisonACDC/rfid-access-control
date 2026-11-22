@@ -21,7 +21,7 @@ CONF_TAMPER_DELAY = "tamper_delay"
 DEFAULT_TAMPER_DELAY = 3
 
 # Versione dell'integrazione: serve anche per il numero di versione della risorsa Lovelace
-VERSION = "1.3.0"
+VERSION = "1.3.1"
 
 # User attributes
 ATTR_USER_ID = "user_id"
