@@ -11,6 +11,7 @@ import tempfile
 import types
 import unittest
 from pathlib import Path
+from unittest import mock
 
 ROOT = Path(__file__).resolve().parents[1]
 PKG_DIR = ROOT / "custom_components" / "rfid_access_control"
@@ -238,6 +239,19 @@ class IntegrationTest(unittest.IsolatedAsyncioTestCase):
 
     async def test_tamper_delay_defaults_to_three_seconds(self):
         self.assertEqual(integ._tamper_delay(self.rt()), 3)
+
+    async def test_card_error_does_not_stop_the_integration(self):
+        failing = mock.AsyncMock(side_effect=RuntimeError("risorsa non valida"))
+        with mock.patch.object(integ, "_register_card", failing):
+            with self.assertLogs("rfid_pkg", level="WARNING") as logs:
+                self.assertTrue(await integ.async_setup(self.hass, {}))
+        self.assertEqual(failing.await_count, 1)
+        self.assertTrue(any(
+            "/rfid_access_control/rfid-access-control-card.js?v=1.3.0" in line for line in logs.output
+        ))
+        # L'integrazione è comunque operativa: i servizi rispondono.
+        await self.set_pins()
+        self.assertTrue(self.rt()["db"].pins_configured())
 
     async def test_short_cover_opening_is_logged_but_does_not_lock(self):
         with self.assertLogs("rfid_pkg", level="WARNING") as logs:

@@ -370,7 +370,15 @@ async def async_setup(hass: HomeAssistant, config: ConfigType) -> bool:
     """Set up RFID Access Control component and its services once."""
     hass.data.setdefault(DOMAIN, {})
     _register_services(hass)
-    await _register_card(hass)
+    # Un errore nella card non deve impedire all'integrazione di partire.
+    try:
+        await _register_card(hass)
+    except Exception as error:
+        _LOGGER.warning(
+            "Card non registrata automaticamente (%s). Aggiungi a mano la risorsa %s?v=%s "
+            "in Impostazioni → Dashboard → Risorse, tipo Modulo JavaScript.",
+            error, CARD_URL, VERSION,
+        )
     return True
 
 

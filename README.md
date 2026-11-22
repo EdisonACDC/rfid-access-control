@@ -1,7 +1,7 @@
 # RFID Access Control v1.3.0
 
 <p align="center">
-  <img src="custom_components/rfid_access_control/icon.png" alt="RFID Access Control" width="128" />
+  <img src="icon.png" alt="RFID Access Control" width="128" />
 </p>
 
 Integrazione per Home Assistant che gestisce il controllo accessi con il tastierino Zigbee **KEPZB-110** (PIN e tessere RFID), con una card Lovelace per tutto il lavoro quotidiano.
